@@ -40,7 +40,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: default
-  namespace: argocd
+  namespace: argocd-infra
 spec:
   sourceRepos:
     - '*'
