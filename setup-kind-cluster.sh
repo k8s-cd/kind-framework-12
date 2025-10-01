@@ -2,7 +2,8 @@
 set -euo pipefail
 #create a kind cluster with ingress-nginx controller installed and configured.
 #https://kind.sigs.k8s.io/docs/user/ingress/
-cat <<EOF | sudo kind create cluster --config=-
+mkdir -p ~/.kube
+cat <<EOF | sudo kind create cluster --name kind-cd --kubeconfig ~/.kube/kind-cd --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
@@ -23,7 +24,7 @@ nodes:
     protocol: TCP
     listenAddress: "127.0.0.1"
 EOF
-sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+sudo kubectl --kubeconfig ~/.kube/kind-cd apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
 
 #deploy argocd-core in the cluster
-sudo kubectl apply -n argocd-core --create-namespace -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
+sudo kubectl --kubeconfig ~/.kube/kind-cd apply -n argocd-core --create-namespace -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
