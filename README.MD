@@ -9,5 +9,5 @@ this repo contains
 ## Instructions
 execute the script `setup-kind-cluster.sh` to setup the kind cluster with ingress-nginx and argocd-core.
 ```bash
-curl -sSL https://raw.githubusercontent.com/k8s-cd/kind-framework-12/main/setup-kind-cluster.sh | bash
+curl -sSL https://raw.githubusercontent.com/k8s-cd/kind-framework-12/refs/heads/main/setup-kind-cluster.sh | bash
 ```

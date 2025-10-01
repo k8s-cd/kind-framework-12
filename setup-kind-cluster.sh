@@ -24,7 +24,8 @@ nodes:
     protocol: TCP
     listenAddress: "127.0.0.1"
 EOF
-sudo kubectl --kubeconfig ~/.kube/kind-cd apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
 
 #deploy argocd-core in the cluster
-sudo kubectl --kubeconfig ~/.kube/kind-cd apply -n argocd-core --create-namespace -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
+sudo kubectl --kubeconfig ~/.kube/kind-cd create namespace argocd-core
+sudo kubectl --kubeconfig ~/.kube/kind-cd apply -n argocd-core -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
