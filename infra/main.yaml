@@ -33,7 +33,7 @@ spec:
         valuesObject:
           domain: &domain .kind
           apps_values:
-            argocd-simple:
+            argocd:
               domain: *domain
             argocd-apps:
               repoURL: "https://github.com/k8s-cd/kind-framework-12.git"

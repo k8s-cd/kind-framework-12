@@ -1,0 +1,47 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: infra
+  namespace: argocd-infra
+spec:
+  ignoreDifferences:
+    - group: argoproj.io
+      kind: Application
+      jsonPointers:
+        - /operation
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argocd-infra
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+  project: default
+  sources:
+    - repoURL: 'https://github.com/GoodHelmCharts/argocd-applications'
+      path: ./
+      targetRevision: "HEAD" 
+      helm:
+        valueFiles:
+          - values.yaml
+          # TOOLS
+          - $templates/kube-ops-view/kube-ops-view.yaml
+          - $templates/homepage/homepage.yaml
+          # TEKTON
+          #- $templates/tekton/tekton.yaml
+
+        valuesObject:
+          domain: &domain .nixos.local
+          apps_values:
+            git@github.com/ThomasInfras/argocd-template/kube-ops-view/kube-ops-view:
+              domain: *domain
+            git@github.com/ThomasInfras/argocd-template/homepage/homepage:
+              domain: *domain
+
+
+    - repoURL: 'https://github.com/GoodInfras/argocd-templates'
+      targetRevision: "HEAD"
+      ref: templates
