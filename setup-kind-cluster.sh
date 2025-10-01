@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+sudo kind delete cluster --name kind-cd || true
 #create a kind cluster with ingress-nginx controller installed and configured.
 #https://kind.sigs.k8s.io/docs/user/ingress/
 sudo mkdir -p ~/.kube
@@ -35,6 +36,21 @@ echo "Waiting for argocd-core to be ready..."
 sudo kubectl --kubeconfig ~/.kube/kind-cd -n argocd-infra wait --for=condition=available --timeout=600s deployment/argocd-applicationset-controller
 
 sudo kubectl apply --kubeconfig ~/.kube/kind-cd -n argocd-infra  -f - <<EOF
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: default
+  namespace: argocd
+spec:
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: '*'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
