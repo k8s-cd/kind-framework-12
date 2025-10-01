@@ -39,6 +39,6 @@ spec:
               repoURL: "https://github.com/k8s-cd/kind-framework-12.git"
 
 
-    - repoURL: 'git@github.com:GoodInfras/argocd-templates'
+    - repoURL: "https://github.com/GoodInfras/argocd-templates"
       targetRevision: "HEAD"
       ref: templates
