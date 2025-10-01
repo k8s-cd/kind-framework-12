@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+sudo su
 #create a kind cluster with ingress-nginx controller installed and configured.
 #https://kind.sigs.k8s.io/docs/user/ingress/
 mkdir -p ~/.kube
