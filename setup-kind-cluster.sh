@@ -35,8 +35,9 @@ sudo helm --kubeconfig ~/.kube/kind-cd install argocd-infra  argo/argo-cd --set 
 
 
 #wait for argocd-core to be ready
-echo "Waiting for argocd-core to be ready..."
+echo "Waiting for argocd to be ready..."
 sudo kubectl --kubeconfig ~/.kube/kind-cd -n argocd-infra wait --for=condition=available --timeout=600s deployment/argocd-infra-server
+sudo kubectl --kubeconfig ~/.kube/kind-cd -n argocd-infra wait --for=condition=available --timeout=600s deployment/argocd-infra-repo-server
 
 sudo kubectl apply --kubeconfig ~/.kube/kind-cd -n argocd-infra  -f - <<EOF
 apiVersion: argoproj.io/v1alpha1
