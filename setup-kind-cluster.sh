@@ -29,7 +29,11 @@ sudo kubectl --kubeconfig ~/.kube/kind-cd apply -f https://raw.githubusercontent
 
 #deploy argocd-core in the cluster
 sudo kubectl --kubeconfig ~/.kube/kind-cd create namespace argocd-infra
-sudo kubectl --kubeconfig ~/.kube/kind-cd apply -n argocd-infra -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
+#sudo kubectl --kubeconfig ~/.kube/kind-cd apply -n argocd-infra -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
+
+sudo helm repo add argo https://argoproj.github.io/argo-helm
+sudo helm --kubeconfig ~/.kube/kind-cd install argocd-infra  argo/argo-cd --set notifications.enabled=false --set dex.enabled=false --set redis.enabled=true --set server.replicas=1 --set configs.cm.admin.enabled=false --set applicationSet.replicas=0  --namespace argocd-infra --create-namespace
+
 
 #wait for argocd-core to be ready
 echo "Waiting for argocd-core to be ready..."
