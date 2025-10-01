@@ -32,7 +32,7 @@ sudo kubectl --kubeconfig ~/.kube/kind-cd apply -n argocd-infra -f https://raw.g
 
 #wait for argocd-core to be ready
 echo "Waiting for argocd-core to be ready..."
-sudo kubectl --kubeconfig ~/.kube/kind-cd -n argocd-infra wait --for=condition=available --timeout=600s deployment/argocd-server
+sudo kubectl --kubeconfig ~/.kube/kind-cd -n argocd-infra wait --for=condition=available --timeout=600s deployment/argocd-applicationset-controller
 
 sudo kubectl apply --kubeconfig ~/.kube/kind-cd -n argocd-infra  -f - <<EOF
 apiVersion: argoproj.io/v1alpha1
