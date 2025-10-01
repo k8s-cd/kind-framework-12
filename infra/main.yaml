@@ -41,4 +41,4 @@ spec:
 
     - repoURL: 'git@github.com:GoodInfras/argocd-templates'
       targetRevision: "HEAD"
-      ref: templates
+      ref: values
