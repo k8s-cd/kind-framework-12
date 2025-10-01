@@ -20,7 +20,7 @@ spec:
       - CreateNamespace=true
   project: default
   sources:
-    - repoURL: 'https://github.com/GoodHelmCharts/argocd-applications'
+    - repoURL: 'https://github.com/GoodHelmCharts/argocd-applications.git'
       path: ./
       targetRevision: "HEAD" 
       helm:
