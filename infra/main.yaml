@@ -22,7 +22,7 @@ spec:
   sources:
     - repoURL: 'https://github.com/GoodHelmCharts/argocd-applications.git'
       path: ./
-      #targetRevision: "dev"
+      targetRevision: "dev"
 
       helm:
         valueFiles:
