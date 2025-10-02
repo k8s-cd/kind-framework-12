@@ -23,7 +23,6 @@ spec:
     - repoURL: 'https://github.com/GoodHelmCharts/argocd-applications.git'
       path: ./
       targetRevision: "dev"
-
       helm:
         valueFiles:
           - values.yaml
@@ -32,14 +31,11 @@ spec:
           - $templates/argocd/argocd-lookup.yaml
           #- $templates/argocd/argocd-apps.yaml
         valuesObject:
-          domain: &domain .kind
           apps_values:
             argocd:
-              domain: *domain
+              domain: .kind
             argocd-apps:
               repoURL: "https://github.com/k8s-cd/kind-framework-12.git"
-
-
     - repoURL: "https://github.com/GoodInfras/argocd-templates.git"
       targetRevision: "HEAD"
       ref: templates
