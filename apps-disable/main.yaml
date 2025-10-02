@@ -28,17 +28,17 @@ spec:
         valueFiles:
           - values.yaml
           # TOOLS
-          - $templates/kube-ops-view/kube-ops-view.yaml
+          #- $templates/kube-ops-view/kube-ops-view.yaml
           - $templates/homepage/homepage.yaml
           # TEKTON
           #- $templates/tekton/tekton.yaml
 
         valuesObject:
-          domain: &domain .nixos.local
+          domain: &domain .kind
           apps_values:
-            git@github.com/ThomasInfras/argocd-template/kube-ops-view/kube-ops-view:
+            kube-ops-view:
               domain: *domain
-            git@github.com/ThomasInfras/argocd-template/homepage/homepage:
+            homepage:
               domain: *domain
 
 

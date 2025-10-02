@@ -29,7 +29,7 @@ spec:
           # ARGOCD
           - $templates/argocd/argocd-simple.yaml
           - $templates/argocd/argocd-lookup.yaml
-          #- $templates/argocd/argocd-apps.yaml
+          - $templates/argocd/argocd-apps.yaml
         valuesObject:
           apps_values:
             argocd:
