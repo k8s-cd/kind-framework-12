@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cluster_name='kind-cd' #var_cluster_name
+key_file="$HOME/.ssh/id_$cluster_name"
+if compgen -G "$key_file*" > /dev/null; then
+  echo "existing ssh keys"
+else
+  ssh-keygen -t rsa -b 4096 -f "$key_file" -N "" 
+fi
 sudo kind delete cluster --name $cluster_name || true
 #create a kind cluster with ingress-nginx controller installed and configured.
 #use sudo to listen on ports 80,443 and allow privileged containers
