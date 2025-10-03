@@ -53,7 +53,7 @@ spec:
         - /operation
   project: default
   source:
-    repoURL: 'https://github.com/k8s-cd/kind-framework-12.git'
+    repoURL: 'https://github.com/k8s-cd/kind-framework-12.git' #var_git_k8s_cd
     targetRevision: HEAD
     path: infra
 
