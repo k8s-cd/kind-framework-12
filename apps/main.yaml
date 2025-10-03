@@ -28,7 +28,7 @@ spec:
         valueFiles:
           - values.yaml
           # TOOLS
-          #- $templates/kube-ops-view/kube-ops-view.yaml
+          - $templates/kube-ops-view/kube-ops-view.yaml
           - $templates/homepage/homepage.yaml
           # TEKTON
           #- $templates/tekton/tekton.yaml
