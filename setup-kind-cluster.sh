@@ -43,7 +43,7 @@ sudo kubectl apply --kubeconfig ~/.kube/kind-cd -n argocd-infra  -f - <<EOF
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: infra
+  name: setup
   namespace: argocd-infra
 spec:
   ignoreDifferences:
