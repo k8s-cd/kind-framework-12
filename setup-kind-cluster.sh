@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
+#use to listen on ports 80,443 and allow privileged containers
+sudo -i
 cluster_name='kind-cd' #var_cluster_name
 key_file="$HOME/.ssh/id_$cluster_name"
 if compgen -G "$key_file*" > /dev/null; then
   echo "existing ssh keys"
 else
-  sudo ssh-keygen -t rsa -b 4096 -f "$key_file" -N "" 
+  ssh-keygen -t rsa -b 4096 -f "$key_file" -N "" 
 fi
-sudo kind delete cluster --name $cluster_name || true
+kind delete cluster --name $cluster_name || true
 #create a kind cluster with ingress-nginx controller installed and configured.
-#use sudo to listen on ports 80,443 and allow privileged containers
 #https://kind.sigs.k8s.io/docs/user/ingress/
-sudo mkdir -p ~/.kube
-cat <<EOF | sudo kind create cluster --name $cluster_name --kubeconfig ~/.kube/kind-cd --config=-
+mkdir -p ~/.kube
+cat <<EOF | kind create cluster --name $cluster_name --kubeconfig ~/.kube/kind-cd --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
@@ -33,21 +34,21 @@ nodes:
     protocol: TCP
     listenAddress: "127.0.0.1"
 EOF
-sudo kubectl --kubeconfig ~/.kube/kind-cd apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+kubectl --kubeconfig ~/.kube/kind-cd apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
 
 #deploy argocd-core in the cluster
-sudo kubectl --kubeconfig ~/.kube/kind-cd create namespace argocd-infra
+kubectl --kubeconfig ~/.kube/kind-cd create namespace argocd-infra
 
-sudo helm repo add argo https://argoproj.github.io/argo-helm
-sudo helm --kubeconfig ~/.kube/kind-cd install argocd-infra  argo/argo-cd --set notifications.enabled=false --set dex.enabled=false --set redis.enabled=true --set server.replicas=1 --set configs.cm.admin.enabled=false --set applicationSet.replicas=0  --namespace argocd-infra --create-namespace
+helm repo add argo https://argoproj.github.io/argo-helm
+helm --kubeconfig ~/.kube/kind-cd install argocd-infra  argo/argo-cd --set notifications.enabled=false --set dex.enabled=false --set redis.enabled=true --set server.replicas=1 --set configs.cm.admin.enabled=false --set applicationSet.replicas=0  --namespace argocd-infra --create-namespace
 
 
 #wait for argocd-core to be ready
 echo "Waiting for argocd to be ready..."
-sudo kubectl --kubeconfig ~/.kube/kind-cd -n argocd-infra wait --for=condition=available --timeout=600s deployment/argocd-infra-server
-sudo kubectl --kubeconfig ~/.kube/kind-cd -n argocd-infra wait --for=condition=available --timeout=600s deployment/argocd-infra-repo-server
+kubectl --kubeconfig ~/.kube/kind-cd -n argocd-infra wait --for=condition=available --timeout=600s deployment/argocd-infra-server
+kubectl --kubeconfig ~/.kube/kind-cd -n argocd-infra wait --for=condition=available --timeout=600s deployment/argocd-infra-repo-server
 
-sudo kubectl apply --kubeconfig ~/.kube/kind-cd -n argocd-infra  -f - <<EOF
+kubectl apply --kubeconfig ~/.kube/kind-cd -n argocd-infra  -f - <<EOF
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
