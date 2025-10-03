@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
-sudo kind delete cluster --name kind-cd || true
+cluster_name='kind-cd' #var_cluster_name
+sudo kind delete cluster --name $cluster_name || true
 #create a kind cluster with ingress-nginx controller installed and configured.
+#use sudo to listen on ports 80,443 and allow privileged containers
 #https://kind.sigs.k8s.io/docs/user/ingress/
 sudo mkdir -p ~/.kube
-cat <<EOF | sudo kind create cluster --name kind-cd --kubeconfig ~/.kube/kind-cd --config=-
+cat <<EOF | sudo kind create cluster --name $cluster_name --kubeconfig ~/.kube/kind-cd --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
