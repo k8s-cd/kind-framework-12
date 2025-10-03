@@ -34,7 +34,7 @@ spec:
           #- $templates/tekton/tekton.yaml
 
         valuesObject:
-          domain: &domain .kind
+          domain: &domain '.kind' #var_domain
           apps_values:
             kube-ops-view:
               domain: *domain
