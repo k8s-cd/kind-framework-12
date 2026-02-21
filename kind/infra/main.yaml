@@ -17,7 +17,8 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+      - "CreateNamespace=true"
+      - "ServerSideApply=true"      
   project: default
   sources:
     - repoURL: 'https://github.com/GoodHelmCharts/argocd-applications.git' #var_git_chart_argocd_app
