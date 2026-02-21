@@ -1,3 +1,5 @@
+#curl -sSL https://raw.githubusercontent.com/k8s-cd/kind-framework-12/refs/heads/main/kind/setup.sh | bash
+
 url=https://raw.githubusercontent.com/k8s-cd/common/main/
 export KIND_CLUSTER='automatic-cluster'
 cmd="sudo -H --preserve-env=KIND_CLUSTER bash -s --"
