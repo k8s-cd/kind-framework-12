@@ -28,7 +28,6 @@ spec:
       helm:
         valueFiles:
           - values.yaml
-          - $templates/local-path-provisioner/local-path-provisioner.yaml
           # TOOLS
           - $templates/kube-ops-view/kube-ops-view.yaml
           - $templates/homepage/homepage.yaml
