@@ -36,7 +36,8 @@ spec:
             argocd:
               domain: '.127.0.0.1.nip.io' #var_domain
             argocd-apps:
-              repoURL: 'https://github.com/k8s-cd/kind-framework-12.git/kind/infra' #var_git_k8s_cd
+              repoURL: 'https://github.com/k8s-cd/kind-framework-12.git' #var_git_k8s_cd
+              path: "kind/apps"
     - repoURL: 'https://github.com/GoodInfras/argocd-templates.git' #var_git_argocd_templates
       targetRevision: "HEAD"
       ref: templates
