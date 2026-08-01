@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: 0-infra-main
+  name: 1-infra-main
   namespace: argocd-infra
 spec:
   ignoreDifferences:
