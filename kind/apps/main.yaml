@@ -43,6 +43,6 @@ spec:
               domain: *domain
 
 
-    - repoURL: 'https://github.com/GoodInfras/argocd-templates.git' #var_git_argocd_templates
+    - repoURL: 'https://github.com/GoodInfras/argocd-app-catalog.git' #var_git_argocd_templates
       targetRevision: "HEAD"
       ref: templates
