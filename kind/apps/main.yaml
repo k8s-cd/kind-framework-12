@@ -31,6 +31,9 @@ spec:
           # TOOLS
           - $templates/kube-ops-view/kube-ops-view.yaml
           - $templates/homepage/homepage.yaml
+          # Logging/Metrics
+          - $templates/victoria/victoria-logs-single.yaml
+          - $templates/vector/vector.yaml
           # TEKTON
           #- $templates/tekton/tekton.yaml
 
@@ -40,6 +43,8 @@ spec:
             kube-ops-view:
               domain: *domain
             homepage:
+              domain: *domain
+            victorialogs:
               domain: *domain
 
 
