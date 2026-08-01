@@ -22,7 +22,7 @@ spec:
       - ServerSideApply=true
   project: default
   sources:
-    - repoURL: 'https://github.com/GoodHelmCharts/argocd-applications.git' #var_git_chart_argocd_app
+    - repoURL: 'https://github.com/GoodHelmCharts/argocd-app-factory.git' #var_git_chart_argocd_app
       path: ./
       targetRevision: "dev" 
       helm:
